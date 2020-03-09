@@ -3,6 +3,12 @@
 
 ## Animal crossing: New horizons retweet bot
 
+### Usage
+  ```bash
+  pip install -r requirements.txt
+  python3 start_retweet_bot.py
+  ```
+
 ### Features
 - Retweet below hash tags per 10 minutes
   - 모동숲\_트친소
@@ -11,3 +17,4 @@
 
 ### Coded by
 - LuHa (munhyunsu@gmail.com)
+
