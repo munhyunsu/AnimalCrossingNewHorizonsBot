@@ -31,11 +31,16 @@ def main():
     for keyword in CFG['retweet']:
         for tweet in tweepy.Cursor(api.search, q=keyword, 
                                    result_type='recent').items(20):
+            created_at = tweet.created_at
+            url = (f'https://twitter.com/{tweet.user.screen_name}'
+                   f'/status/{tweet.id}')
+            print(f'{created_at} {url}')
             if tweet.retweeted:
                 continue
             try:
                 tweet.retweet()
                 cnt_retweeted += 1
+                print(f'Retweeted {url}')
             except tweepy.error.TweepError as e:
                 print('TweepyError {0}'.format(e))
                 # [{'code': 185, 
