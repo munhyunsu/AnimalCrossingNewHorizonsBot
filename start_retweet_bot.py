@@ -27,20 +27,24 @@ def main():
     api = tweepy.API(auth)
 
     cnt_retweeted = 0
-    try:
-        for keyword in CFG['retweet']:
-            for tweet in tweepy.Cursor(api.search, q=keyword, 
-                                       result_type='recent').items(20):
-                if tweet.retweeted:
-                    continue
-                try:
-                    tweet.retweet()
-                    cnt_retweeted += 1
-                except tweepy.error.TweepError as e:
-                    print('TweepyError {0}'.format(e))
-    except tweepy.error.RateLimitError as e:
-        print('RateLimitError {0}'.format(e))
-
+    still_going = True
+    for keyword in CFG['retweet']:
+        for tweet in tweepy.Cursor(api.search, q=keyword, 
+                                   result_type='recent').items(20):
+            if tweet.retweeted:
+                continue
+            try:
+                tweet.retweet()
+                cnt_retweeted += 1
+            except tweepy.error.TweepError as e:
+                print('TweepyError {0}'.format(e))
+                # [{'code': 185, 
+                # 'message': 'User is over daily status update limit.'}]
+                if e['code'] == 185:
+                    still_going = False
+                    break
+        if still_going is False:
+            break
     print('retweeted {0}'.format(cnt_retweeted))
     
 
