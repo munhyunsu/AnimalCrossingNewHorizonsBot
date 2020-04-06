@@ -40,7 +40,7 @@ def main():
                 print('TweepyError {0}'.format(e))
                 # [{'code': 185, 
                 # 'message': 'User is over daily status update limit.'}]
-                if e['code'] == 185:
+                if e.api_code == 185:
                     still_going = False
                     break
         if still_going is False:
