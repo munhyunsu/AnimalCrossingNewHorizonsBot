@@ -29,7 +29,8 @@ def main():
     cnt_retweeted = 0
     try:
         for keyword in CFG['retweet']:
-            for tweet in tweepy.Cursor(api.search, q=keyword).items(20):
+            for tweet in tweepy.Cursor(api.search, q=keyword, 
+                                       result_type='recent').items(20):
                 if tweet.retweeted:
                     continue
                 try:
