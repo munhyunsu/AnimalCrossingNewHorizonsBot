@@ -34,15 +34,17 @@ def main():
             created_at = tweet.created_at
             url = (f'https://twitter.com/{tweet.user.screen_name}'
                    f'/status/{tweet.id}')
-            print(f'{created_at} {url}')
+            #print(f'{created_at} {url}')
             if tweet.retweeted:
+                continue
+            if tweet.user.screen_name == CFG['auth']['screen_name']:
                 continue
             try:
                 tweet.retweet()
                 cnt_retweeted += 1
                 print(f'Retweeted {url}')
             except tweepy.error.TweepError as e:
-                print('TweepyError {0}'.format(e))
+                print(f'TweepyError {e.api_code}: {e.message} by {url}')
                 # [{'code': 185, 
                 # 'message': 'User is over daily status update limit.'}]
                 if e.api_code == 185:
@@ -50,7 +52,7 @@ def main():
                     break
         if still_going is False:
             break
-    print('retweeted {0}'.format(cnt_retweeted))
+    print('Retweeted {0}'.format(cnt_retweeted))
     
 
 if __name__ == '__main__':
