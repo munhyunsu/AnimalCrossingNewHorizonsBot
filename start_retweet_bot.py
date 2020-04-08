@@ -44,7 +44,9 @@ def main():
                 cnt_retweeted += 1
                 print(f'Retweeted {url}')
             except tweepy.error.TweepError as e:
-                print(f'TweepyError {e.api_code}: {e.message} by {url}')
+                print((f'TweepyError {e.api_code}: '
+                       f'{e.response.json()["errors"][0]["message"]} '
+                       f'by {url}'))
                 # [{'code': 185, 
                 # 'message': 'User is over daily status update limit.'}]
                 if e.api_code == 185:
