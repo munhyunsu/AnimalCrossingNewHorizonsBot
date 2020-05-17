@@ -15,6 +15,10 @@
   - 모동숲\_통신
   - 모동숲\_무값
 
+### TODO
+
+- Count by hash tags
+
 ### Coded by
 - LuHa (munhyunsu@gmail.com)
 
